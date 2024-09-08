@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queres venir a mi casa larita</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Evita barras de desplazamiento por el movimiento del botón */
+        }
+        .container {
+            text-align: center;
+            position: relative;
+            width: 80vw; /* Área visible del contenedor */
+            height: 80vh; /* Área visible del contenedor */
+        }
+        .message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .alert {
+            font-size: 24px;
+            color: red;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message">Queres venir a mi casa</div>
+        <button id="yesButton" class="button" style="left: 50px; top: 100px;">obvio bobis</button>
+        <button id="noButton" class="button" style="left: 200px; top: 100px;">No, tengo que estudiar</button>
+        <div id="alert" class="alert hidden">te pero watona</div>
+    </div>
+    <script>
+        document.getElementById('yesButton').addEventListener('click', function() {
+            document.getElementById('alert').classList.remove('hidden');
+            document.getElementById('yesButton').disabled = true;
+            document.getElementById('noButton').disabled = true;
+        });
+
+        const noButton = document.getElementById('noButton');
+        noButton.addEventListener('click', function() {
+            this.classList.add('hidden');
+        });
+
+        noButton.addEventListener('mouseover', function() {
+            moveButton(noButton);
+        });
+
+        function moveButton(button) {
+            const container = button.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
+
+            // Limita el rango de movimiento para que el botón no se salga del contenedor
+            const maxX = containerRect.width - buttonRect.width - 10; // -10 para margen
+            const maxY = containerRect.height - buttonRect.height - 10; // -10 para margen
+
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+    </script>
+</body>
+</html>
